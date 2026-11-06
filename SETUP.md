@@ -85,12 +85,11 @@ Do not install anything the user declines.
 
 1. Read `KIT/TEMPLATES/settings.json`. If a settings file exists, merge: add the kit's `deny` and `ask`
    entries to the existing lists, keep everything the user already has. Show the merged result.
-2. **Windows:** this session may run commands through a PowerShell tool as well as Bash. Check the current
-   Claude Code permissions documentation for how rules name the PowerShell tool, and add PowerShell
-   equivalents of the kit's Bash `deny` and `ask` rules (for example `Remove-Item -Recurse` against broad
-   paths, `git push`, GAM writes). If you cannot confirm the syntax, say so and leave a note in the setup log
-   rather than guessing.
+2. The template already covers both the Bash tool and the PowerShell tool, and anchors credential paths at
+   the filesystem root (`//`) or home (`~/`) so they apply in every folder.
 3. Write it on approval. Explain in two lines what the deny and ask rules do and how to change them.
+4. If this is the org's IT lead, mention `KIT/docs/org-mode.md`: the same rules can be enforced for every
+   staff member from the claude.ai admin console. Do not change any org setting yourself.
 
 ## Stage 5 · The kit's plugins
 
@@ -100,9 +99,15 @@ Run, after one approval:
 claude plugin validate "KIT"
 claude plugin marketplace add "KIT"
 claude plugin install onboarding@claude-starter-kit
+claude plugin install guardrails@claude-starter-kit
 claude plugin install it-admin@claude-starter-kit
 claude plugin list
+bash "KIT/plugins/guardrails/tests/run.sh"
 ```
+
+The last line is the guardrails self-test: it feeds sample commands to the hook as data (nothing is executed)
+and must report every case passed. If it fails, stop and show the user the output; the hook blocks on failure,
+so a broken hook would block every shell command.
 
 Then recommend (do not install without a yes) `mattpocock-skills` (grilling, tdd, diagnosing-bugs) from
 Anthropic's official marketplace and Anthropic's `skill-creator`. List anything else in `KIT/docs/toolbox.md`

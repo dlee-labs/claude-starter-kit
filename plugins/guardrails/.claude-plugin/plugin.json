@@ -1,0 +1,6 @@
+{
+  "name": "guardrails",
+  "description": "Hard gates that hold even when a prompt or a permission mode would let a command through: blocks skipping git hooks, force pushes, inline hook overrides, GAM deletes in any spelling, and recursive deletes at a drive or home root. Fails closed.",
+  "version": "0.1.0",
+  "author": { "name": "[ORG NAME] IT" }
+}

@@ -129,18 +129,24 @@ shows you the merged file before writing.
 
 | Rule type | What Claude Code does | Kit entries |
 |---|---|---|
-| `deny` | Refuses the action outright, even if you or a prompt ask for it | Reading `~/.ssh`, `~/.aws`, the GitHub CLI's config, any `.env` or `secrets` folder; `rm -rf /*`; `git push --force`; `git commit --no-verify`; GAM delete commands; `sudo` |
-| `ask` | Always stops for your approval, even in a permissive mode | Any `gam` command; `git push`; `gh repo create`; `curl` writes (POST, PUT, PATCH, DELETE); `schtasks` and `launchctl` (scheduled jobs); `op` (1Password) |
+| `deny` | Refuses the action outright, even if you or a prompt ask for it | Reading `~/.ssh`, `~/.aws`, the GitHub CLI's config, and any `.env`, `secrets` folder, credentials or service-account JSON **anywhere on disk**; force push; `git commit --no-verify` or `-n`; GAM deletes; `sudo`; `Format-Volume`, `Clear-Disk` |
+| `ask` | Always stops for your approval, even in a permissive mode | Any `gam` command; `git push`; `gh repo create`; API writes (`curl -X POST/PUT/PATCH/DELETE`, `Invoke-RestMethod -Method`); recursive `Remove-Item`; scheduled tasks (`schtasks`, `Register-ScheduledTask`, `launchctl`); elevation (`Start-Process -Verb RunAs`); `Set-ExecutionPolicy`; `op` (1Password) |
 
-On Windows, Claude Code may also run commands through PowerShell. Setup checks the current documentation
-for how rules name the PowerShell tool and adds matching rules. If it cannot confirm the syntax, it says so
-and logs the gap instead of guessing, and you fix it later.
+Every command rule exists twice, as `Bash(...)` and `PowerShell(...)`, because on Windows Claude Code can run
+commands through either tool. Credential paths start with `//` (filesystem root) or `~/` (home): a bare
+`**/.env` would only cover the folder the session started in.
+
+**What these rules can and cannot stop.** Read denies cover Claude's own file tools and the shell file
+commands Claude Code recognizes (`cat`, `head`, `tail`, `sed`), but not a script that opens files itself.
+Command rules match the command as written, so an unusual spelling can slip past; the `guardrails` plugin in
+Stage 5 closes the dangerous cases. Full OS-level enforcement is the sandbox, which runs on macOS, Linux and
+WSL2, not native Windows.
 
 **Changes on your machine:** one file, applying to every Claude Code session.
 
 **Why:** The rules file is culture: Claude follows it, but it can be argued with. Settings are enforced by
-the tool itself. The deny list protects your credentials from being read into a session at all; the ask list
-puts a human in front of every write to a production system and every scheduled job.
+the tool itself. For an org, the same rules can be enforced for everyone from the claude.ai admin console
+(`docs/org-mode.md`), where users cannot change them.
 
 **Undo:** edit the file; remove any line you disagree with.
 
@@ -153,9 +159,19 @@ puts a human in front of every write to a production system and every scheduled 
 claude plugin validate "<kit folder>"                 # checks the marketplace and plugins are well-formed
 claude plugin marketplace add "<kit folder>"          # registers the kit as a source of plugins
 claude plugin install onboarding@claude-starter-kit   # welcome, org-guide, migrate-project, build-brand-voice
+claude plugin install guardrails@claude-starter-kit   # the hook described below
 claude plugin install it-admin@claude-starter-kit     # student-activity-review, account-lifecycle, unifi-review, automation-port
-claude plugin list                                    # confirms both are installed and enabled
+claude plugin list                                    # confirms all three are installed and enabled
+bash "<kit folder>/plugins/guardrails/tests/run.sh"   # guardrails self-test; must pass every case
 ```
+
+**The `guardrails` plugin** adds a hook: a small script Claude Code runs before **every** Bash or PowerShell
+command, which can veto it. It blocks, in any spelling the deny rules might miss: skipping git hooks
+(`--no-verify`, `commit -n`, overriding or unsetting `core.hooksPath`), force pushes (`--force-with-lease` is
+allowed), GAM delete and wipe commands however the binary is invoked, and recursive deletes at a drive, home or
+root folder. It **fails closed**: if the script cannot run, the command is blocked rather than allowed. It
+needs Git Bash on Windows, which Stage 1 installs. It adds nothing to the context window. The self-test feeds
+26 sample commands to it as data (none are executed) and checks each verdict.
 Then it suggests, and installs only on your yes, Matt Pocock's skills (grilling, tdd, diagnosing-bugs) and
 Anthropic's skill-creator, and lists the rest of `docs/toolbox.md` as optional.
 

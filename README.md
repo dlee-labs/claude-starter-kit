@@ -30,7 +30,7 @@ commands, the files it changes, why, and how to undo it: [`docs/setup-explained.
 | 2 | Creates `<home>\Claude` (workspace) and `<home>\dev` (code), checks for OneDrive redirection, a private-by-default git repo, the secrets and student-data pre-commit hook, your git identity | Approve |
 | 3 | Writes your personal `<home>\.claude\CLAUDE.md` from a three-question interview | Answer, approve |
 | 4 | Merges guardrails into `<home>\.claude\settings.json` (deny secrets and destructive admin commands; ask before pushes and admin writes), for both Bash and PowerShell | Approve |
-| 5 | Validates and installs this marketplace's `onboarding` and `it-admin` plugins; suggests a few more | Approve |
+| 5 | Validates and installs the `onboarding`, `guardrails` and `it-admin` plugins, runs the guardrails self-test; suggests a few more | Approve |
 | 6 | Optional: backs the workspace up to a private GitHub repo | Run `gh auth login` yourself, then approve |
 | 7 | Hands off: open a new session in `<home>\Claude` and type `/welcome` | `/welcome` writes the org rules, interviews you and builds your first real project |
 
@@ -58,10 +58,11 @@ the setup log it describes so we can resume if we stop.
 | `SETUP.md` | The runbook Claude follows for the one-prompt setup |
 | `CONTEXT/` | The org documents, edited only here: `ai-rules.md`, `ai-use-policy.md`, `working-with-claude.md`, `folder-structure.md`, `org-identity.md` |
 | `plugins/onboarding/` | `welcome`, `org-guide`, `migrate-project`, `build-brand-voice` |
+| `plugins/guardrails/` | A fail-closed hook that blocks skipping git hooks, force pushes, GAM deletes and root-level recursive deletes, with a self-test |
 | `plugins/it-admin/` | `student-activity-review`, `account-lifecycle`, `unifi-review`, `automation-port` |
-| `TEMPLATES/` | Personal `CLAUDE.md`, guardrail `settings.json`, workspace `.gitignore`, project README ledger |
+| `TEMPLATES/` | Personal `CLAUDE.md`, guardrail `settings.json`, org-wide `managed-settings.json`, workspace `.gitignore`, project README ledger |
 | `.githooks/pre-commit` | Blocks credentials and person-level exports from any repo that uses it |
-| `docs/` | Setup explained stage by stage, champion playbook, where work runs, the chief-of-staff model for many sessions, toolbox |
+| `docs/` | Setup explained stage by stage, org mode (enforce the kit for everyone), champion playbook, where work runs, the chief-of-staff model for many sessions, toolbox |
 | `tools/build.sh` | Syncs `CONTEXT/` into the plugin and rebuilds the `CLAUDE.md` template. Run after any CONTEXT edit |
 
 ## Maintaining it

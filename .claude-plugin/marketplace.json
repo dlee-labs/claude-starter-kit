@@ -1,15 +1,22 @@
 {
   "name": "claude-starter-kit",
-  "owner": { "name": "[ORG NAME] IT" },
+  "owner": {
+    "name": "[ORG NAME] IT"
+  },
   "metadata": {
     "description": "Starter Claude setup for a church and school IT team: onboarding with the org's AI rules, and IT admin skills for student activity review, Google Workspace account lifecycle, UniFi review, and automation.",
-    "version": "0.1.0"
+    "version": "0.2.0"
   },
   "plugins": [
     {
       "name": "onboarding",
       "source": "./plugins/onboarding",
       "description": "Start here. /welcome sets up the working folder, writes the org AI rules as an ambient CLAUDE.md, interviews the person and builds their first real project; org-guide answers 'is this allowed?'; migrate-project moves a claude.ai Project or mega-prompt into a folder; build-brand-voice writes the voice file from real samples."
+    },
+    {
+      "name": "guardrails",
+      "source": "./plugins/guardrails",
+      "description": "Hard gates that hold in any permission mode: blocks skipping git hooks, force pushes, inline hook overrides, GAM deletes in any spelling, and recursive deletes at a root folder, for both Bash and PowerShell. Fails closed. Install for everyone."
     },
     {
       "name": "it-admin",

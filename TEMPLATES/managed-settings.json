@@ -1,0 +1,86 @@
+{
+  "strictKnownMarketplaces": [
+    {
+      "source": "github",
+      "repo": "anthropics/claude-plugins-official"
+    },
+    {
+      "source": "github",
+      "repo": "YOUR-GITHUB-ORG/claude-starter-kit"
+    },
+    {
+      "source": "skills-dir"
+    }
+  ],
+  "extraKnownMarketplaces": {
+    "claude-plugins-official": {
+      "source": {
+        "source": "github",
+        "repo": "anthropics/claude-plugins-official"
+      }
+    },
+    "claude-starter-kit": {
+      "source": {
+        "source": "github",
+        "repo": "YOUR-GITHUB-ORG/claude-starter-kit"
+      },
+      "autoUpdate": true
+    }
+  },
+  "enabledPlugins": {
+    "onboarding@claude-starter-kit": true,
+    "guardrails@claude-starter-kit": true
+  },
+  "disableSideloadFlags": true,
+  "permissions": {
+    "deny": [
+      "Read(~/.ssh/**)",
+      "Read(~/.aws/**)",
+      "Read(~/.config/gh/**)",
+      "Read(~/AppData/Roaming/GitHub CLI/**)",
+      "Read(//**/.env)",
+      "Read(//**/*.env)",
+      "Read(//**/secrets/**)",
+      "Read(//**/*credentials*.json)",
+      "Read(//**/*service-account*.json)",
+      "Bash(git push --force *)",
+      "Bash(git push -f *)",
+      "Bash(git commit --no-verify *)",
+      "Bash(git commit -n *)",
+      "Bash(gam * delete *)",
+      "Bash(gam delete *)",
+      "Bash(sudo *)",
+      "PowerShell(git push --force *)",
+      "PowerShell(git push -f *)",
+      "PowerShell(git commit --no-verify *)",
+      "PowerShell(git commit -n *)",
+      "PowerShell(gam * delete *)",
+      "PowerShell(gam delete *)",
+      "PowerShell(Format-Volume *)",
+      "PowerShell(Clear-Disk *)"
+    ],
+    "ask": [
+      "Bash(gam *)",
+      "Bash(git push *)",
+      "Bash(gh repo create *)",
+      "Bash(curl -X POST *)",
+      "Bash(curl -X PUT *)",
+      "Bash(curl -X PATCH *)",
+      "Bash(curl -X DELETE *)",
+      "Bash(schtasks *)",
+      "Bash(launchctl *)",
+      "Bash(op *)",
+      "PowerShell(gam *)",
+      "PowerShell(git push *)",
+      "PowerShell(gh repo create *)",
+      "PowerShell(Invoke-RestMethod *-Method *)",
+      "PowerShell(Invoke-WebRequest *-Method *)",
+      "PowerShell(Remove-Item * -Recurse*)",
+      "PowerShell(Register-ScheduledTask *)",
+      "PowerShell(schtasks *)",
+      "PowerShell(Start-Process * -Verb RunAs*)",
+      "PowerShell(Set-ExecutionPolicy *)",
+      "PowerShell(op *)"
+    ]
+  }
+}

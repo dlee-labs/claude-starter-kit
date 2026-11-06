@@ -14,10 +14,22 @@ For the person bringing Claude into an org. What would have saved the most time 
    first project is the demo for everyone else.
 5. **One canonical source.** This repo holds the rules, the voice and the skills. Everyone installs from it.
    Fixes go here, and everyone gets them on update.
-6. **Default-deny new tools,** with a fast path: a request note (what, why, which data) and a yes or no within
+6. **Enforce, then trust.** Once the policy is filled in and the kit is hosted privately, turn on org mode
+   (`docs/org-mode.md`): managed settings force-install `onboarding` and `guardrails`, allow plugins only from
+   the official marketplace and yours, and apply the guardrail rules to everyone.
+7. **Default-deny new tools,** with a fast path: a request note (what, why, which data) and a yes or no within
    a week. Slow approvals teach people to route around you.
-7. **Ninety-day review:** what people actually use, what they asked for, what broke, what the policy got
+8. **Ninety-day review:** what people actually use, what they asked for, what broke, what the policy got
    wrong.
+
+## Keeping it healthy (monthly, 15 minutes)
+
+- `/skill-doctor`: skills that cost context but never get used.
+- `/doctor prompt-audit`: stale or conflicting instructions in the CLAUDE.md files.
+- `claude plugin details <plugin>`: what each plugin adds to every session.
+- `/permissions`: prune the one-off approvals that pile up in local settings.
+- `bash plugins/guardrails/tests/run.sh` after any change to the hook.
+- Quarterly: re-check every "facts checked" line (connectors, APIs, plan features move).
 
 ## Principles behind the kit
 
