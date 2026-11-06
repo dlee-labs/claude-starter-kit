@@ -26,7 +26,9 @@ Look for `CONTEXT/my-profile.md`.
 - **None:** first run. Say in two sentences what the next twenty minutes hold (folder, a short tour, a few
   questions, one real piece of work), then Step 1.
 - **Exists, stages incomplete:** say what is done and resume at the first incomplete stage.
-- **Exists, complete:** offer a checkup (re-run preflight, ask how the month went, update `Time sinks`), a
+- **Exists, complete:** offer a checkup (re-run the 1c and 1d comparison of `CLAUDE.md` and the CONTEXT docs
+  against the bundled copies, so an updated kit is offered as an update; re-run preflight; ask how the month
+  went; update `Time sinks`), a
   refresh of one section, or a start-over (archive the old profile first).
 - **Exists, different owner:** stop. Never blend two people's profiles. Recommend a separate computer account.
 
