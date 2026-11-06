@@ -65,6 +65,32 @@ the setup log it describes so we can resume if we stop.
 | `docs/` | Setup explained stage by stage, org mode (enforce the kit for everyone), champion playbook, where work runs, the chief-of-staff model for many sessions, toolbox |
 | `tools/build.sh` | Syncs `CONTEXT/` into the plugin and rebuilds the `CLAUDE.md` template. Run after any CONTEXT edit |
 
+## Updating the kit from a newer zip
+
+**Not set up yet:** delete the old `claude-starter-kit` folder, extract the new zip in its place, and run the
+setup prompt as normal.
+
+**Already set up:**
+1. Rename the old folder to `claude-starter-kit-old` (it holds any edits you made, such as filled-in rules).
+2. Extract the new zip so you have a fresh `<home>\dev\claude-starter-kit`.
+3. Open a new Code session on your home folder and paste:
+
+```text
+The Claude starter kit in the dev\claude-starter-kit folder under my home folder was updated; the previous
+copy is in dev\claude-starter-kit-old. Read the new SETUP.md and README.md. Then: (1) list what changed
+between the two folders, and copy back any edits I made to CONTEXT\ in the old copy, showing me each one
+first; (2) re-run Stage 4 to merge the new settings rules into my settings, showing me the diff; (3) re-run
+Stage 5: update the marketplace, install any plugin I don't have yet, and run the guardrails self-test;
+(4) append what you did to my setup log. Ask once before each step.
+```
+
+4. Start a new session (or run `/reload-plugins`) so updated skills load. The kit loads in place from this
+   folder, so skill changes need no version bump. Settings and newly added plugins do need steps 2 and 3.
+5. When all is well, delete `claude-starter-kit-old`.
+
+If you edited `CONTEXT\` in your copy, also run `/welcome` in your `Claude` folder for the checkup: it notices
+that your org rules file is older than the kit's and offers to update it.
+
 ## Maintaining it
 
 - Edit org documents in `CONTEXT/` only, then `tools/build.sh`, then commit. The copies under `plugins/` are
