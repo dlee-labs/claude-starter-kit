@@ -68,6 +68,12 @@ the setup log it describes so we can resume if we stop.
 
 - Edit org documents in `CONTEXT/` only, then `tools/build.sh`, then commit. The copies under `plugins/` are
   build output.
-- Bump the version in `.claude-plugin/marketplace.json` and the plugin's `plugin.json` when you change a skill.
-- Everyone updates with `claude plugin marketplace update claude-starter-kit`.
+- **Your own machine** loads the kit in place from this folder: edits take effect at the next session start
+  or after `/reload-plugins`, no version bump needed.
+- **Once others install it from a hosted repo:** bump `version` in the changed plugin's `plugin.json` only
+  (never also in the marketplace entry), or omit `version` everywhere so users track commits. Auto-update is
+  off by default: each person turns it on in `/plugin` > Marketplaces, or an admin sets `"autoUpdate": true`
+  in managed settings. Otherwise people update with `claude plugin marketplace update claude-starter-kit`.
+- **On a Team plan,** an admin can sync this repo to everyone through claude.ai Organization settings > Plugins
+  & skills (the repo must be private), so staff need no git account and no install step.
 - Keep this repo private. It holds no secrets, but it is the shape of your security posture.
