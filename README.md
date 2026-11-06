@@ -19,7 +19,9 @@ Windows first; macOS works too. `<home>` is `C:\Users\<you>` on Windows, `~` on 
    Documents, Desktop or OneDrive.
 5. **Paste the prompt below** into a new Code session opened on your home folder.
 
-**Claude does the rest, stopping only for your approvals and your own sign-ins:**
+**Claude does the rest, stopping only for your approvals and your own sign-ins.** Every stage, with its exact
+commands, the files it changes, why, and how to undo it: [`docs/setup-explained.md`](docs/setup-explained.md).
+
 
 | Stage | What happens | Your part |
 |---|---|---|
@@ -59,7 +61,7 @@ the setup log it describes so we can resume if we stop.
 | `plugins/it-admin/` | `student-activity-review`, `account-lifecycle`, `unifi-review`, `automation-port` |
 | `TEMPLATES/` | Personal `CLAUDE.md`, guardrail `settings.json`, workspace `.gitignore`, project README ledger |
 | `.githooks/pre-commit` | Blocks credentials and person-level exports from any repo that uses it |
-| `docs/` | Champion playbook, where work runs, the chief-of-staff model for many sessions, toolbox |
+| `docs/` | Setup explained stage by stage, champion playbook, where work runs, the chief-of-staff model for many sessions, toolbox |
 | `tools/build.sh` | Syncs `CONTEXT/` into the plugin and rebuilds the `CLAUDE.md` template. Run after any CONTEXT edit |
 
 ## Maintaining it

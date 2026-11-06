@@ -6,7 +6,8 @@ Narrate in one line per stage, not per command.
 
 **Ground rules for this run**
 - Ask **once per stage** for approval, showing exactly what you will do (commands, files, and settings
-  changes). Then do all of it.
+  changes) and, in one or two lines, why, taken from that stage's section of `KIT/docs/setup-explained.md`.
+  If the user asks what something does, answer from that file. Then do all of it.
 - Never ask for, print, or store a password, token, or API key. Sign-ins the user does themselves, in their
   own terminal or browser.
 - Never overwrite an existing file without showing the difference and asking. No `.bak` copies: show the diff.
