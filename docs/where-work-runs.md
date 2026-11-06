@@ -22,7 +22,8 @@
 ## Keeping environments straight
 
 1. **Git is the only sync.** One clone per machine; they meet on GitHub. Never a repo in iCloud, Dropbox,
-   OneDrive or a network share (they corrupt `.git` and create conflict copies).
+   OneDrive or a network share (they corrupt `.git` and create conflict copies). On Windows, check whether
+   Documents and Desktop are redirected into OneDrive; keep repos under `C:\Users\<you>\` directly.
 2. **Pull at session start,** and read incoming scripts, hooks, skills and `CLAUDE.md` changes before they run
    on another machine.
 3. **One scheduled job, one machine,** recorded in the job's runbook.
@@ -30,6 +31,17 @@
 5. **Parallel tasks get their own git worktree.**
 6. **Name the machine.** Session titles or the status line show host and repo. Most mix-ups are "I thought I
    was on the other box."
+
+## Scheduling traps (Windows)
+
+- A Task Scheduler task set to "Run only when user is logged on", and the desktop app's scheduled tasks, run
+  only while you are signed in and the PC is awake. A nightly job on a laptop runs whenever you next open it.
+- "Run whether user is logged on or not" under a service account runs unattended, but that account does not
+  see mapped drive letters: use UNC paths, and test as the account.
+- Task arguments are visible to anyone who can open Task Scheduler. Secrets go in the 1Password CLI or an
+  env file whose ACL allows only the service account.
+- Sleep and Windows Update restarts skip runs. Turn on "Run task as soon as possible after a scheduled start
+  is missed" for anything that must not be skipped, or move it to the server.
 
 ## Scheduling traps (macOS)
 

@@ -12,3 +12,6 @@ PROJECTS/*/1-source/*.xlsx
 PROJECTS/*/1-source/*.json
 # macOS
 .DS_Store
+# Windows
+Thumbs.db
+desktop.ini

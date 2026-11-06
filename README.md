@@ -7,36 +7,42 @@ rules as an ambient `CLAUDE.md`, an onboarding flow, and IT admin skills with th
 
 **You do these by hand (about 15 minutes):**
 
+Windows first; macOS works too. `<home>` is `C:\Users\<you>` on Windows, `~` on a Mac.
+
 1. **Account.** Sign up for Claude on the plan you will use for org work (Team, Enterprise or an education
    agreement). A personal plan is fine for learning with made-up data; org data waits for business terms.
 2. **App.** Install the Claude desktop app (claude.ai/download), sign in, and open the **Code** tab.
-3. **Kit.** Put this folder at `~/dev/claude-starter-kit` (clone it, or unzip it there).
-4. **Paste the prompt below** into a new Code session opened on your home folder.
+3. **Git for Windows** (recommended, git-scm.com, or `winget install --id Git.Git -e`). Claude Code runs on
+   Windows without it, through PowerShell, but Git Bash gives it the Bash tool, and you need git anyway.
+   Setup can install it for you; then you restart the app once.
+4. **Kit.** Put this folder at `<home>\dev\claude-starter-kit` (clone it, or unzip it there). **Not** under
+   Documents, Desktop or OneDrive.
+5. **Paste the prompt below** into a new Code session opened on your home folder.
 
 **Claude does the rest, stopping only for your approvals and your own sign-ins:**
 
 | Stage | What happens | Your part |
 |---|---|---|
-| 0 | Checks the machine, reads the kit, asks your name, org, role | Answer four questions |
-| 1 | Installs missing tools (git, gh, python3, jq, optionally 1Password CLI) | Approve; run the Xcode and Homebrew installers yourself if missing (they need your Mac password) |
-| 2 | Creates `~/Claude` (workspace) and `~/dev` (code), a private-by-default git repo, the secrets and student-data pre-commit hook, your git identity | Approve |
-| 3 | Writes your personal `~/.claude/CLAUDE.md` from a three-question interview | Answer, approve |
-| 4 | Merges guardrails into `~/.claude/settings.json` (deny secrets and destructive admin commands; ask before pushes and admin writes) | Approve |
+| 0 | Checks the machine and shell, reads the kit, asks your name, org, role | Answer four questions |
+| 1 | Installs missing tools with winget (git, gh, python, jq, optionally 1Password CLI and Node) | Approve; accept any Windows permission prompts; restart the app once after Git installs |
+| 2 | Creates `<home>\Claude` (workspace) and `<home>\dev` (code), checks for OneDrive redirection, a private-by-default git repo, the secrets and student-data pre-commit hook, your git identity | Approve |
+| 3 | Writes your personal `<home>\.claude\CLAUDE.md` from a three-question interview | Answer, approve |
+| 4 | Merges guardrails into `<home>\.claude\settings.json` (deny secrets and destructive admin commands; ask before pushes and admin writes), for both Bash and PowerShell | Approve |
 | 5 | Validates and installs this marketplace's `onboarding` and `it-admin` plugins; suggests a few more | Approve |
 | 6 | Optional: backs the workspace up to a private GitHub repo | Run `gh auth login` yourself, then approve |
-| 7 | Hands off: open a new session in `~/Claude` and type `/welcome` | `/welcome` writes the org rules, interviews you and builds your first real project |
+| 7 | Hands off: open a new session in `<home>\Claude` and type `/welcome` | `/welcome` writes the org rules, interviews you and builds your first real project |
 
 ## The prompt
 
 ```text
-Set up my machine from the Claude starter kit at ~/dev/claude-starter-kit. Read its SETUP.md and follow it
+Set up my machine from the Claude starter kit in the dev\claude-starter-kit folder under my home folder. Read its SETUP.md and follow it
 stage by stage. Ask me once per stage before changing anything, never ask me for a password or key, and keep
 the setup log it describes so we can resume if we stop.
 ```
 
 ## After setup: first week
 
-1. Run `/welcome` in `~/Claude`.
+1. Run `/welcome` in your `Claude` folder.
 2. Make the policy yours: fill in the `[BRACKETED]` values in `CONTEXT/ai-rules.md` and `ai-use-policy.md`,
    run `tools/build.sh`, commit, and run `/welcome` again for the checkup (it picks up the new rules).
 3. Do one real task from each IT skill with sample data. Commit at the end of each session.

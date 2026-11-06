@@ -19,7 +19,7 @@ are fragile, hard to read, or need data Power Automate cannot reach.
 | The job | Runs on |
 |---|---|
 | Run by hand | The laptop (a script in a repo, or a skill) |
-| Scheduled, late is fine | The laptop (app scheduled task or a user LaunchAgent) |
+| Scheduled, late is fine | The laptop (app scheduled task, a Task Scheduler task that runs at logon, or a macOS LaunchAgent) |
 | The org depends on it, or anyone but you relies on it | The always-on server, as a system service under a non-admin service account |
 | Only needs cloud APIs, no campus network | A cloud scheduler is an option |
 
@@ -48,12 +48,21 @@ machine: never install the same job in two places.
 
 ## 5 · Schedule
 
+- **Windows (laptop or server):** Task Scheduler (`schtasks` or `Register-ScheduledTask`).
+  - "Run only when user is logged on" is the laptop trap: the job silently waits for a login. For anything
+    the org depends on, use **"Run whether user is logged on or not"** under a dedicated service account
+    (a group Managed Service Account if you have Active Directory), not your own login.
+  - A task running as a service account **does not see mapped drives** (`S:\`): use UNC paths
+    (`\\server\share`), and test as that account. A missing drive often reads as "file not found", not as a
+    permissions error.
+  - Secrets: the 1Password CLI with a service-account token, or an env file readable only by the service
+    account (set the ACL with `icacls`). Never in the task's arguments, which are visible in Task Scheduler.
+  - Set "Stop the task if it runs longer than" and turn on task history, so a hung job is visible.
 - **macOS server:** a LaunchDaemon in `/Library/LaunchDaemons` running as the service account. It has no
   login session and no Full Disk Access, so a protected folder reads as empty rather than erroring: test the
   real paths as that account. Never put secrets in the plist (world-readable); the wrapper sources a mode-600
   env file, and every value in it is quoted (a sourced unquoted `&` gets executed).
 - **Linux:** a systemd service plus timer, `User=` the service account, `EnvironmentFile=` mode 600.
-- **Windows:** Task Scheduler running as a service account, "run whether user is logged on or not".
 - Record in the runbook and the inventory which machine holds the job.
 
 ## 6 · Cut over

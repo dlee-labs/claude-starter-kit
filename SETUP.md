@@ -9,65 +9,93 @@ Narrate in one line per stage, not per command.
   changes). Then do all of it.
 - Never ask for, print, or store a password, token, or API key. Sign-ins the user does themselves, in their
   own terminal or browser.
-- Never overwrite an existing file without showing the difference and asking. Back nothing up as `.bak`:
-  show the diff instead.
-- Keep a checklist at `~/Claude/REFERENCE/setup-log-YYYY-MM-DD.md` as you go (stage, result, anything the
+- Never overwrite an existing file without showing the difference and asking. No `.bak` copies: show the diff.
+- Keep a checklist at `<home>/Claude/REFERENCE/setup-log-YYYY-MM-DD.md` as you go (stage, result, anything the
   user still has to do). If the run stops, re-running the prompt resumes from that log.
-- `KIT` below means the folder this file is in.
+- `KIT` below means the folder this file is in. `<home>` is the user's home folder (`%USERPROFILE%` on
+  Windows, `~` on macOS). In Git Bash on Windows, `~` also means `%USERPROFILE%`.
 
 ## Stage 0 · Where are we
 
-1. Confirm macOS (`sw_vers`). On Windows or Linux, say this runbook is macOS-first, adapt paths, and continue
-   only with the user's yes.
-2. Read `KIT/README.md` and `~/Claude/REFERENCE/setup-log-*.md` if one exists; resume at the first unfinished
-   stage.
-3. Ask the user for: their name, their work email, their org's name, and their role in one line. Nothing else
-   yet.
+1. Detect the OS. **Windows** (the primary path for this kit) or **macOS**; each stage below gives both. On
+   Linux, adapt and continue only with the user's yes.
+2. On Windows, note which shell tools this session has (Bash via Git Bash, PowerShell, or both).
+3. Read `KIT/README.md` and `<home>/Claude/REFERENCE/setup-log-*.md` if one exists; resume at the first
+   unfinished stage.
+4. Ask the user for: their name, their work email, their org's name, and their role in one line.
 
 ## Stage 1 · Tools
 
-Check, and list what is missing in one table: Xcode command-line tools (`xcode-select -p`), Homebrew,
-`git`, `gh` (GitHub CLI), `python3`, `jq`, and optionally Node 22+ (for some skills) and the 1Password CLI
-(`op`, recommended for credentials).
+Check, and list what is missing in one table: `git`, `gh` (GitHub CLI), `python3` (or `python`), `jq`, and
+optionally Node 22+ (for some skills) and the 1Password CLI (`op`, recommended for credentials).
 
-- Install what is missing with Homebrew after one approval. Xcode tools and Homebrew itself prompt for the
-  user's Mac password: tell them to run those two in their own Terminal, give them the exact line, and wait.
-- Do not install anything the user declines.
+**Windows:** install with winget after one approval, one package per command:
+```
+winget install --id Git.Git -e --source winget
+winget install --id GitHub.cli -e --source winget
+winget install --id Python.Python.3.12 -e --source winget
+winget install --id jqlang.jq -e --source winget
+winget install --id AgileBits.1Password.CLI -e --source winget      # optional
+winget install --id OpenJS.NodeJS.LTS -e --source winget            # optional
+```
+Some installers raise a Windows permission prompt (UAC); tell the user to accept it. After installing Git for
+Windows, tell the user to **restart the Claude app** so the session picks up Git Bash and the new PATH, then
+re-paste the prompt; the setup log carries you past this stage.
+
+**macOS:** Xcode command-line tools (`xcode-select --install`) and Homebrew need the user's Mac password: give
+them the exact lines to run in their own Terminal and wait. Then `brew install git gh python jq` (plus
+`1password-cli`, `node` if wanted).
+
+Do not install anything the user declines.
 
 ## Stage 2 · Folders and the workspace repo
 
-1. Create `~/Claude/` (documents workspace) with `CONTEXT/`, `PROJECTS/`, `REFERENCE/`, and `~/dev/` (code).
-   If `~/Claude` already exists with content, stop and ask (see the welcome skill's warning about connecting a
-   folder that already holds sensitive material).
-2. `git init -b main` in `~/Claude`, copy `KIT/TEMPLATES/workspace.gitignore` to `~/Claude/.gitignore`.
-3. Install the pre-commit hook: copy `KIT/.githooks/pre-commit` to `~/Claude/.githooks/`, make it
-   executable, and run `git -C ~/Claude config core.hooksPath .githooks`. Test it: create a scratch file
-   with `printf 'api_key = "%s"\n' TESTTESTTESTTESTTEST > hook-test.txt`, stage it, show that the commit is
-   blocked, then unstage and delete the scratch file.
-4. Git identity. Ask whether they want commits under their work identity, personal identity, or both by
+1. Create `<home>/Claude/` (documents workspace) with `CONTEXT/`, `PROJECTS/`, `REFERENCE/`, and
+   `<home>/dev/` (code). If `Claude` already exists with content, stop and ask (see the welcome skill's
+   warning about connecting a folder that already holds sensitive material).
+   - **Windows: never under Documents, Desktop or OneDrive.** Many organizations redirect Documents and
+     Desktop into OneDrive ("Known Folder Move"), which syncs the folder to the cloud and corrupts git
+     repositories. Check: if `%USERPROFILE%\Documents` resolves into a OneDrive path, say so, and keep the
+     workspace at `%USERPROFILE%\Claude`, which is not redirected.
+   - **macOS: not inside iCloud Drive, Dropbox or Google Drive** for the same reason.
+2. Git settings (Windows): `git config --global core.autocrlf true` and `git config --global core.longpaths
+   true`. Copy `KIT/TEMPLATES/workspace.gitattributes` to `<home>/Claude/.gitattributes` so hook scripts keep
+   Unix line endings.
+3. `git init -b main` in `<home>/Claude`, copy `KIT/TEMPLATES/workspace.gitignore` to `<home>/Claude/.gitignore`.
+4. Install the pre-commit hook: copy `KIT/.githooks/pre-commit` to `<home>/Claude/.githooks/` and run
+   `git -C <home>/Claude config core.hooksPath .githooks`. On macOS also `chmod +x` it. (On Windows, Git for
+   Windows runs hooks with its own bundled bash, so the same script works.) Test it: create a scratch file
+   with `printf 'api_key = "%s"\n' TESTTESTTESTTESTTEST > hook-test.txt` (in Git Bash), stage it, show that the
+   commit is blocked, then unstage and delete the scratch file.
+5. Git identity. Ask whether they want commits under their work identity, personal identity, or both by
    folder. Set `user.name` and `user.email` globally for the default; if both, add an `includeIf
-   "gitdir:~/dev/work/"` block (trailing slash required) pointing at a second include file. Recommend a
-   GitHub noreply address over a real email.
+   "gitdir/i:~/dev/work/"` block (on Windows use `gitdir/i:` because paths are case-insensitive; the trailing
+   slash is required) pointing at a second include file. Recommend a GitHub noreply address.
 
-## Stage 3 · Personal instructions (`~/.claude/CLAUDE.md`)
+## Stage 3 · Personal instructions (`<home>/.claude/CLAUDE.md`)
 
-1. If `~/.claude/CLAUDE.md` exists, show it and ask whether to merge.
+1. If it exists, show it and ask whether to merge.
 2. Otherwise fill `KIT/TEMPLATES/user-CLAUDE.md` with the Stage 0 answers, then ask three questions one at a
    time and add the answers: how they like output (short or detailed, bullets or prose); one thing they never
    want Claude to do; what they work on outside the org (so it stays separate).
 3. Show the result and write it on approval.
 
-## Stage 4 · Guardrails (`~/.claude/settings.json`)
+## Stage 4 · Guardrails (`<home>/.claude/settings.json`)
 
-1. Read `KIT/TEMPLATES/settings.json`. If `~/.claude/settings.json` exists, merge: add the kit's `deny` and
-   `ask` entries to the existing lists, keep everything the user already has. Show the merged result.
-2. Write it on approval. Explain in two lines what the deny and ask rules do and how to change them.
+1. Read `KIT/TEMPLATES/settings.json`. If a settings file exists, merge: add the kit's `deny` and `ask`
+   entries to the existing lists, keep everything the user already has. Show the merged result.
+2. **Windows:** this session may run commands through a PowerShell tool as well as Bash. Check the current
+   Claude Code permissions documentation for how rules name the PowerShell tool, and add PowerShell
+   equivalents of the kit's Bash `deny` and `ask` rules (for example `Remove-Item -Recurse` against broad
+   paths, `git push`, GAM writes). If you cannot confirm the syntax, say so and leave a note in the setup log
+   rather than guessing.
+3. Write it on approval. Explain in two lines what the deny and ask rules do and how to change them.
 
 ## Stage 5 · The kit's plugins
 
 Run, after one approval:
 
-```bash
+```
 claude plugin validate "KIT"
 claude plugin marketplace add "KIT"
 claude plugin install onboarding@claude-starter-kit
@@ -75,26 +103,25 @@ claude plugin install it-admin@claude-starter-kit
 claude plugin list
 ```
 
-Then recommend (do not install without a yes) these from the official marketplace:
-`mattpocock-skills` (grilling, tdd, diagnosing-bugs) and Anthropic's `skill-creator`. List anything else in
-`KIT/docs/toolbox.md` as optional, with one line each.
+Then recommend (do not install without a yes) `mattpocock-skills` (grilling, tdd, diagnosing-bugs) from
+Anthropic's official marketplace and Anthropic's `skill-creator`. List anything else in `KIT/docs/toolbox.md`
+as optional, with one line each.
 
 ## Stage 6 · GitHub (optional, user-driven)
 
-1. If they want the workspace backed up: they run `gh auth login` in their own Terminal (it opens a browser;
+1. If they want the workspace backed up: they run `gh auth login` in their own terminal (it opens a browser;
    you never see the token).
-2. Then, on approval: `gh repo create <name> --private --source ~/Claude --remote origin`, first commit
+2. Then, on approval: `gh repo create <name> --private --source <home>/Claude --remote origin`, first commit
    ("workspace: initial setup"), push. Confirm the repo is **private** in the output before pushing.
 
 ## Stage 7 · Hand off to /welcome
 
-1. Write the final checklist to the setup log, including anything still owed (a sign-in they skipped, a tool
-   they declined).
+1. Write the final checklist to the setup log, including anything still owed.
 2. Tell the user, in three lines:
-   - Open a **new** Code session with `~/Claude` as the folder.
-   - Type `/welcome`. It writes the org rules into `~/Claude/CLAUDE.md`, copies the shared docs, interviews
+   - Open a **new** Code session with the `Claude` folder in their home folder as the working folder.
+   - Type `/welcome`. It writes the org rules into `Claude/CLAUDE.md`, copies the shared docs, interviews
      them, and builds their first real project.
    - Before using real org data: confirm the account is on the org's business plan.
 
-Do not run `/welcome` in this session: it must run with `~/Claude` as the working folder so its `CLAUDE.md`
-loads.
+Do not run `/welcome` in this session: it must run with the `Claude` folder as the working folder so its
+`CLAUDE.md` loads.

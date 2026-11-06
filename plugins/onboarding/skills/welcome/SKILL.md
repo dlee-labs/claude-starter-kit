@@ -28,15 +28,16 @@ Look for `CONTEXT/my-profile.md`.
 - **Exists, stages incomplete:** say what is done and resume at the first incomplete stage.
 - **Exists, complete:** offer a checkup (re-run preflight, ask how the month went, update `Time sinks`), a
   refresh of one section, or a start-over (archive the old profile first).
-- **Exists, different owner:** stop. Never blend two people's profiles. Recommend a separate macOS account.
+- **Exists, different owner:** stop. Never blend two people's profiles. Recommend a separate computer account.
 
 ## Step 1 · The folder
 
 **1a. Check what is connected before writing.** If the working folder already holds substantial content (an
 existing documents library, dozens of folders, someone's own `CLAUDE.md`), stop and say what you see.
 Everything in the folder is readable in every session; connecting a folder of reviews, student files or HR
-material undoes the rules in one step. Recommend a **new, empty** folder (`~/Claude` by convention), not
-inside iCloud Drive, Dropbox or Google Drive, and offer to wait while they switch.
+material undoes the rules in one step. Recommend a **new, empty** folder (`Claude` in their home folder by
+convention), not inside OneDrive, Documents or Desktop on Windows (often redirected to OneDrive), nor iCloud
+Drive, Dropbox or Google Drive, and offer to wait while they switch.
 
 **1b. Skeleton.** Create only `CONTEXT/` and `PROJECTS/`. The rest come when needed.
 

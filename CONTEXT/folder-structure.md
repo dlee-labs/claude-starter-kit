@@ -8,6 +8,7 @@ understand one project, the structure has failed.
 
 ```
 ~/Claude/                 your working folder (its own private git repo if you use git)
+                          on Windows: C:\Users\<you>\Claude, never under OneDrive, Documents or Desktop
   CLAUDE.md               the rules, loaded automatically in every session
   CONTEXT/                who we are and how we work; rarely changes
     my-profile.md         who you are and what your job is; never shared
