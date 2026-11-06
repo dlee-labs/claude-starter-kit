@@ -1,0 +1,6 @@
+{
+  "name": "onboarding",
+  "description": "Onboarding and standing guidance for staff new to Claude: /welcome, org-guide, migrate-project, build-brand-voice. Writes only non-secret files into the person's own folder.",
+  "version": "0.1.0",
+  "author": { "name": "[ORG NAME] IT" }
+}

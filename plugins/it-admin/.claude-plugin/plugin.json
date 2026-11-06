@@ -1,0 +1,6 @@
+{
+  "name": "it-admin",
+  "description": "IT admin skills for a church and school: student activity review, account lifecycle, UniFi review, automation port.",
+  "version": "0.1.0",
+  "author": { "name": "[ORG NAME] IT" }
+}

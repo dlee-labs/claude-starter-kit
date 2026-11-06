@@ -1,0 +1,20 @@
+{
+  "name": "claude-starter-kit",
+  "owner": { "name": "[ORG NAME] IT" },
+  "metadata": {
+    "description": "Starter Claude setup for a church and school IT team: onboarding with the org's AI rules, and IT admin skills for student activity review, Google Workspace account lifecycle, UniFi review, and automation.",
+    "version": "0.1.0"
+  },
+  "plugins": [
+    {
+      "name": "onboarding",
+      "source": "./plugins/onboarding",
+      "description": "Start here. /welcome sets up the working folder, writes the org AI rules as an ambient CLAUDE.md, interviews the person and builds their first real project; org-guide answers 'is this allowed?'; migrate-project moves a claude.ai Project or mega-prompt into a folder; build-brand-voice writes the voice file from real samples."
+    },
+    {
+      "name": "it-admin",
+      "source": "./plugins/it-admin",
+      "description": "IT admin skills with guardrails built in: student-activity-review (GoGuardian and Workspace audit exports), account-lifecycle (end-of-year cleanup in reversible stages), unifi-review (read-only RF and VLAN review), automation-port (Power Automate flows to scheduled scripts, with where-it-runs and credential placement)."
+    }
+  ]
+}

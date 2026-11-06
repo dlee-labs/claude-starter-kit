@@ -1,0 +1,46 @@
+#!/bin/bash
+# Blocks commits that carry credentials or person-level exports.
+# Install: git config core.hooksPath .githooks
+# When this blocks, fix the content. Never commit with --no-verify.
+set -uo pipefail
+
+fail=0
+files=$(git diff --cached --name-only --diff-filter=ACM)
+[ -z "$files" ] && exit 0
+
+# 1. Credential-shaped content.
+secret_re='(api[_-]?key|secret|token|passwd|password|private[_-]?key)["'"'"' ]*[:=][ ]*["'"'"']?[A-Za-z0-9_\-\/+=]{16,}|-----BEGIN [A-Z ]*PRIVATE KEY-----|AKIA[0-9A-Z]{16}|ghp_[A-Za-z0-9]{30,}|xox[baprs]-[A-Za-z0-9-]{10,}|sk-[A-Za-z0-9_-]{20,}|"type": *"service_account"'
+while IFS= read -r f; do
+  [ -f "$f" ] || continue
+  if git show ":$f" 2>/dev/null | grep -EIqi -- "$secret_re"; then
+    echo "BLOCKED: $f looks like it contains a credential. Remove it and rotate the credential if it was real."
+    fail=1
+  fi
+done <<< "$files"
+
+# 2. Credential files by name.
+while IFS= read -r f; do
+  case "$f" in
+    *.env|.env|*.pem|*.p12|*credentials*.json|*token*.json|*service-account*.json)
+      echo "BLOCKED: $f is a credential file by name. Keep it in the password manager or on the server."
+      fail=1 ;;
+  esac
+done <<< "$files"
+
+# 3. Person-level exports: CSVs whose header names people and identifiers together.
+while IFS= read -r f; do
+  case "$f" in *.csv|*.tsv) ;; *) continue ;; esac
+  header=$(git show ":$f" 2>/dev/null | head -1 | tr 'A-Z' 'a-z')
+  if echo "$header" | grep -Eq '(student|first ?name|last ?name|full ?name|user ?name|primary ?email|email)' &&
+     echo "$header" | grep -Eq '(email|id|url|ip|grade|org ?unit|ou|dob|birth|address|phone)'; then
+    echo "BLOCKED: $f looks like a person-level export (header: $header). Exports stay out of git."
+    fail=1
+  fi
+done <<< "$files"
+
+if [ $fail -ne 0 ]; then
+  echo
+  echo "Commit blocked by the pre-commit hook. Unstage the file (git restore --staged <file>) and fix it."
+  exit 1
+fi
+exit 0

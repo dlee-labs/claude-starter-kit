@@ -1,0 +1,29 @@
+{
+  "permissions": {
+    "deny": [
+      "Read(~/.ssh/**)",
+      "Read(~/.aws/**)",
+      "Read(~/.config/gh/**)",
+      "Read(**/.env)",
+      "Read(**/*.env)",
+      "Read(**/secrets/**)",
+      "Bash(rm -rf /*)",
+      "Bash(git push --force*)",
+      "Bash(git commit --no-verify*)",
+      "Bash(gam * delete *)",
+      "Bash(gam delete *)",
+      "Bash(sudo *)"
+    ],
+    "ask": [
+      "Bash(gam *)",
+      "Bash(git push*)",
+      "Bash(gh repo create*)",
+      "Bash(curl -X POST*)",
+      "Bash(curl -X PUT*)",
+      "Bash(curl -X PATCH*)",
+      "Bash(curl -X DELETE*)",
+      "Bash(launchctl *)",
+      "Bash(op *)"
+    ]
+  }
+}

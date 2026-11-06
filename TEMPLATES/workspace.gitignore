@@ -1,0 +1,14 @@
+# Never in git: credentials and person-level exports.
+.env
+*.env
+.secrets*/
+secrets/
+CONTEXT/secrets/
+CONTEXT/my-profile.md
+CONTEXT/my-preferences.md
+# Raw exports in project source folders (account lists, logs, monitoring CSVs).
+PROJECTS/*/1-source/*.csv
+PROJECTS/*/1-source/*.xlsx
+PROJECTS/*/1-source/*.json
+# macOS
+.DS_Store
