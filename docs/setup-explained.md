@@ -169,7 +169,7 @@ bash "<kit folder>/plugins/guardrails/tests/run.sh"   # guardrails self-test; mu
 command, which can veto it. It blocks, in any spelling the deny rules might miss: skipping git hooks
 (`--no-verify`, `commit -n`, overriding or unsetting `core.hooksPath`), force pushes (`--force-with-lease` is
 allowed), GAM delete and wipe commands however the binary is invoked, and recursive deletes at a drive, home or
-root folder. It **fails closed**: if the script cannot run, the command is blocked rather than allowed. It
+root folder. It **fails closed** (`"onFailure": "block"`, Claude Code 2.1.295 or later): if the script cannot run, the command is blocked rather than allowed. It
 needs Git Bash on Windows, which Stage 1 installs. It adds nothing to the context window. The self-test feeds
 26 sample commands to it as data (none are executed) and checks each verdict.
 Then it suggests, and installs only on your yes, Matt Pocock's skills (grilling, tdd, diagnosing-bugs) and

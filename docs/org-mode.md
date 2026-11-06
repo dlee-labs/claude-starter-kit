@@ -21,7 +21,7 @@ marketplace.
 
 ## Before you turn it on
 
-1. **Host the kit as a private GitHub repo** and replace `YOUR-GITHUB-ORG` (two places) with the real
+1. **Fork or copy the kit into a private GitHub repo in your org** and replace `YOUR-GITHUB-ORG` (two places) with the real
    owner. Keep the `strictKnownMarketplaces` and `extraKnownMarketplaces` sources identical: the allowlist
    compares them exactly, and a mismatch means the kit is blocked by its own policy.
 2. **Every staff member needs read access to that repo** with git credentials already stored on their
@@ -45,7 +45,7 @@ Only one managed source applies on a machine by default: if server-managed setti
 
 **Organization settings > Plugins & skills** on claude.ai can sync this repo to members' accounts through the
 org's own GitHub connection, so individual staff need no git credentials. Requirements: the repository must be
-private, and plugins cannot have a top-level `bin/` folder (this kit has none). Synced plugins reach Claude Code
+private (your org's copy, not this public one), and plugins cannot have a top-level `bin/` folder (this kit has none). Synced plugins reach Claude Code
 as "synced plugins"; they are separate from the managed keys above, so keep `strictKnownMarketplaces` and the
 permission rules in managed settings either way.
 

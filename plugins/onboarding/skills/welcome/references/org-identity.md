@@ -1,4 +1,4 @@
-<!-- synced: 2026-11-05 from claude-starter-kit CONTEXT/org-identity.md. Build artifact, do not hand-edit. -->
+<!-- synced: 2026-11-06 from claude-starter-kit CONTEXT/org-identity.md. Build artifact, do not hand-edit. -->
 # [ORG NAME] — who we are
 
 Fill this in once; `/welcome` and `org-guide` read it so nobody re-explains the org. Facts only, no people's
@@ -6,7 +6,7 @@ private details. Keep it under a page.
 
 ## The organization
 
-- **What we are:** [e.g. a church and its K-8 school, one campus]
+- **What we are:** [e.g. a church and its school, one campus]
 - **Size:** [staff count, student count, families]
 - **Mission in one sentence:** [ ]
 - **Leadership that adopts policy:** [board / elders / head of school]

@@ -1,4 +1,4 @@
-<!-- synced: 2026-11-05 from claude-starter-kit CONTEXT/folder-structure.md. Build artifact, do not hand-edit. -->
+<!-- synced: 2026-11-06 from claude-starter-kit CONTEXT/folder-structure.md. Build artifact, do not hand-edit. -->
 # How we organize the Claude working folder
 
 One rule underneath everything: **everything about a piece of work lives inside that work's project

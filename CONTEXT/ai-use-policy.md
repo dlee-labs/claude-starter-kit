@@ -1,6 +1,6 @@
 # [ORG NAME] — Policy on the use of AI
 
-**Starter draft for leadership.** Adapted from a church's adopted policy and generalized for a church and
+**Starter draft for leadership.** Adapted from a church's AI policy and generalized for a church and
 school. Replace every `[BRACKETED]` value. Section 9 lists the decisions that belong to leadership, not IT.
 The AI-facing version of this policy is `ai-rules.md`; when the two disagree, this document governs.
 

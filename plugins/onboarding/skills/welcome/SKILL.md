@@ -50,8 +50,8 @@ overwrite silently: summarize the difference and ask.
 **1d. CONTEXT docs.** Offer to copy `ai-rules.md`, `ai-use-policy.md`, `working-with-claude.md`,
 `folder-structure.md`, `org-identity.md` (and `brand-voice.md` if present) into `CONTEXT/`. Each bundled
 file starts with a `synced:` stamp; use it to say which way a difference points (theirs older: stale;
-same stamp but different: hand-edited, ask; theirs newer: the plugin needs updating). Never write to a
-symlink: it means this is the maintainer's own workspace.
+same stamp but different: hand-edited, ask; theirs newer: the plugin needs updating). If a CONTEXT
+file is a symlink, stop and ask: it may point at a shared copy someone maintains.
 
 **Never ask for, write, or echo a credential.**
 

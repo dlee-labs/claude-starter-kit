@@ -2,8 +2,8 @@
 # PreToolUse gate for Bash and PowerShell tool calls.
 # Reads the tool-call JSON on stdin and blocks (exit 2, reason on stderr) commands that defeat the org's
 # safety checks. Deny rules in settings match the command as written; this catches other spellings.
-# Runs under bash: macOS/Linux natively, Windows through Git Bash. The hook is set to fail closed, so if this
-# script cannot run, the command is blocked rather than waved through.
+# Runs under bash: macOS/Linux natively, Windows through Git Bash. The hook is set to fail closed ("onFailure":
+# "block", Claude Code 2.1.295+), so if this script cannot run, the command is blocked rather than waved through.
 
 input="$(cat)"
 

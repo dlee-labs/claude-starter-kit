@@ -3,6 +3,9 @@
 A plugin marketplace and setup runbook for an IT lead bringing Claude into a church and school: the org's AI
 rules as an ambient `CLAUDE.md`, an onboarding flow, and IT admin skills with the guardrails built in.
 
+It is a template: fill in the `[BRACKETED]` values for your organization, keep your filled-in copy private, and
+have leadership adopt the policy before staff use it with real data. MIT licensed.
+
 ## Order of operations
 
 **You do these by hand (about 15 minutes):**
@@ -102,5 +105,6 @@ that your org rules file is older than the kit's and offers to update it.
   off by default: each person turns it on in `/plugin` > Marketplaces, or an admin sets `"autoUpdate": true`
   in managed settings. Otherwise people update with `claude plugin marketplace update claude-starter-kit`.
 - **On a Team plan,** an admin can sync this repo to everyone through claude.ai Organization settings > Plugins
-  & skills (the repo must be private), so staff need no git account and no install step.
-- Keep this repo private. It holds no secrets, but it is the shape of your security posture.
+  & skills (that sync needs a private repo, so fork or copy this one into your org), so staff need no git account
+  and no install step.
+- Keep your filled-in copy private. It holds no secrets, but it is the shape of your security posture.

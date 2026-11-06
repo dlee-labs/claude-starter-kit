@@ -6,9 +6,9 @@ BLOCK	Bash	git config --unset core.hooksPath
 BLOCK	Bash	git push --force origin main
 BLOCK	Bash	git push -f
 BLOCK	Bash	git push origin +main:main
-BLOCK	Bash	gam delete user kid@school.org
+BLOCK	Bash	gam delete user kid@example.org
 BLOCK	Bash	gam update group x && gam csv old.csv gam delete user ~email
-BLOCK	PowerShell	& gam.exe delete user kid@school.org
+BLOCK	PowerShell	& gam.exe delete user kid@example.org
 BLOCK	Bash	rm -rf ~
 BLOCK	Bash	rm -rf /
 BLOCK	PowerShell	Remove-Item -Recurse -Force C:\
@@ -20,7 +20,7 @@ pass	Bash	git -C ~/Claude config core.hooksPath .githooks
 pass	Bash	git push --force-with-lease origin feat
 pass	Bash	git push origin main
 pass	Bash	gam print users fields orgunitpath,suspended
-pass	Bash	gam update user kid@school.org suspended on
+pass	Bash	gam update user kid@example.org suspended on
 pass	Bash	rm -rf ./build
 pass	PowerShell	Remove-Item -Recurse .\2-working\tmp
 pass	Bash	git fetch -f origin

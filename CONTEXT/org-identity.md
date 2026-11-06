@@ -5,7 +5,7 @@ private details. Keep it under a page.
 
 ## The organization
 
-- **What we are:** [e.g. a church and its K-8 school, one campus]
+- **What we are:** [e.g. a church and its school, one campus]
 - **Size:** [staff count, student count, families]
 - **Mission in one sentence:** [ ]
 - **Leadership that adopts policy:** [board / elders / head of school]

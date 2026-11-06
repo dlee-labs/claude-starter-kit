@@ -25,7 +25,6 @@ For the person bringing Claude into an org. What would have saved the most time 
 ## Keeping it healthy (monthly, 15 minutes)
 
 - `/skill-doctor`: skills that cost context but never get used.
-- `/doctor prompt-audit`: stale or conflicting instructions in the CLAUDE.md files.
 - `claude plugin details <plugin>`: what each plugin adds to every session.
 - `/permissions`: prune the one-off approvals that pile up in local settings.
 - `bash plugins/guardrails/tests/run.sh` after any change to the hook.

@@ -1,4 +1,4 @@
-<!-- synced: 2026-11-05 from claude-starter-kit CONTEXT/working-with-claude.md. Build artifact, do not hand-edit. -->
+<!-- synced: 2026-11-06 from claude-starter-kit CONTEXT/working-with-claude.md. Build artifact, do not hand-edit. -->
 # Working with Claude at [ORG NAME]
 
 How Claude works on [ORG NAME] tasks: posture, output, and where things go. The **rules** about data and
