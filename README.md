@@ -6,6 +6,10 @@ rules as an ambient `CLAUDE.md`, an onboarding flow, and IT admin skills with th
 It is a template: fill in the `[BRACKETED]` values for your organization, keep your filled-in copy private, and
 have leadership adopt the policy before staff use it with real data. MIT licensed.
 
+**Looking for a church AI policy?** [`church-ai-policy/`](church-ai-policy/) is a complete, adaptable AI use
+policy for a church's elders or board, with a members' privacy notice. It works with any AI service; you do not
+need the rest of this kit to use it.
+
 ## Order of operations
 
 **You do these by hand (about 15 minutes):**
@@ -66,6 +70,7 @@ the setup log it describes so we can resume if we stop.
 | `TEMPLATES/` | Personal `CLAUDE.md`, guardrail `settings.json`, org-wide `managed-settings.json`, workspace `.gitignore`, project README ledger |
 | `.githooks/pre-commit` | Blocks credentials and person-level exports from any repo that uses it |
 | `docs/` | Setup explained stage by stage, org mode (enforce the kit for everyone), champion playbook, where work runs, the chief-of-staff model for many sessions, toolbox |
+| `church-ai-policy/` | A standalone church AI use policy template and members' notice, for any AI service |
 | `tools/build.sh` | Syncs `CONTEXT/` into the plugin and rebuilds the `CLAUDE.md` template. Run after any CONTEXT edit |
 
 ## Updating the kit from a newer zip
