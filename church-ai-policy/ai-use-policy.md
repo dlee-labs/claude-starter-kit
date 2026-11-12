@@ -297,7 +297,7 @@ protection is that the full transcript does not outlive its use.
   Restricted said in it is handled as Restricted wherever it was said.
 - **Counseling sessions themselves are not recorded under this section;** they follow Section 8.
 
-> Choice: recording consent law differs by state and country. Section 18 sends the exact wording to counsel.
+> Choice: recording consent law differs by state and country. Section 17 sends the exact wording to counsel.
 
 ---
 
